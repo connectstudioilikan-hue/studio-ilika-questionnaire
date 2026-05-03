@@ -1,0 +1,74 @@
+# How to Deploy Studio Ilika Questionnaire to Vercel
+## You will get a live link like: https://studio-ilika-questionnaire.vercel.app
+
+---
+
+## STEP 1 — Install Node.js (one time only)
+1. Go to https://nodejs.org
+2. Download and install the "LTS" version
+3. Once installed, open Terminal (Mac) or Command Prompt (Windows)
+
+---
+
+## STEP 2 — Set up the project on your computer
+1. Unzip the downloaded file `studio-ilika.zip`
+2. Open Terminal / Command Prompt
+3. Type this command to go into the folder:
+   cd path/to/studio-ilika
+   (Replace "path/to" with where you unzipped it — e.g. cd Desktop/studio-ilika)
+4. Install dependencies by typing:
+   npm install
+5. Test it locally by typing:
+   npm run dev
+6. Open your browser and go to: http://localhost:5173
+   ✅ You should see the full form with all photos loading!
+
+---
+
+## STEP 3 — Create a free Vercel account
+1. Go to https://vercel.com
+2. Click "Sign Up" → choose "Continue with Google" (easiest)
+3. Use your Studio Ilika Google account
+
+---
+
+## STEP 4 — Install Vercel CLI and deploy
+In your Terminal / Command Prompt (still in the studio-ilika folder), type:
+
+   npm install -g vercel
+
+Then type:
+
+   vercel
+
+Follow the prompts:
+- "Set up and deploy?" → Y (yes)
+- "Which scope?" → your account name
+- "Link to existing project?" → N (no)
+- "Project name?" → studio-ilika-questionnaire (or press Enter)
+- "Directory?" → press Enter (it detects automatically)
+- "Override settings?" → N (no)
+
+✅ Done! Vercel will give you a live URL like:
+   https://studio-ilika-questionnaire.vercel.app
+
+---
+
+## STEP 5 — Custom domain (optional)
+If you want it at forms.studioilika.com:
+1. Go to vercel.com → your project → Settings → Domains
+2. Add: forms.studioilika.com
+3. Vercel will give you DNS instructions to add to your domain registrar
+
+---
+
+## To update the form later:
+Just make changes to the files, then type:
+   vercel --prod
+Your live link updates instantly.
+
+---
+
+## Need help?
+WhatsApp the zip file + this guide to your web developer.
+They can deploy it in under 10 minutes.
