@@ -1,96 +1,92 @@
 import { useState } from "react";
-
 const C = {
   ivory: "#F5EFE6", terracotta: "#C2714F", rust: "#A85B3A",
   clay: "#D4896A", gold: "#B89B6A", dark: "#3B2A1A",
   muted: "#7A6652", white: "#FDFAF6", border: "#DDD3C3",
   highlight: "#FBF3EC",
 };
-
 /* ── STYLE OPTIONS with your curated photos ──────────────── */
 const styleOptions = [
   { id: "minimalist", label: "Contemporary Minimalist", tag: "Less Is More", desc: "Clean lines, open space, nothing extra",
-    img: "/styles/contemporary_minimalist.jpg" },
+    img: "/contemporary_minimalist.jpg" },
   { id: "warm_modern", label: "Warm Modern", tag: "Textured Comfort", desc: "Modern forms softened with wood, warmth & texture",
-    img: "/styles/warm_modern.jpg" },
+    img: "/warm_modern.jpg" },
   { id: "classic", label: "Classic / Traditional", tag: "Timeless Heritage", desc: "Timeless elegance, rich materials, formal symmetry",
-    img: "/styles/classic_traditional.jpg" },
+    img: "/classic_traditional.jpg" },
   { id: "royal_indian", label: "Royal Indian / Haveli", tag: "Regal Heritage", desc: "Jali work, murals, heritage craftsmanship, royal warmth",
-    img: "/styles/royal_indian.jpg" },
+    img: "/royal_indian.jpg" },
   { id: "eclectic", label: "Eclectic / Layered", tag: "Curated Collector", desc: "A confident mix of eras, cultures & textures",
-    img: "/styles/eclectic.jpg" },
+    img: "/eclectic.jpg" },
   { id: "transitional", label: "Transitional", tag: "Best of Both", desc: "Classic bones, contemporary finishes — balanced harmony",
-    img: "/styles/transitional.jpg" },
+    img: "/transitional.jpg" },
   { id: "art_deco", label: "Art Deco / Glamour", tag: "Gilded Drama", desc: "Bold geometry, gold accents, sophisticated luxury",
-    img: "/styles/art_deco.jpg" },
+    img: "/art_deco.jpg" },
   { id: "bohemian", label: "Bohemian / Earthy", tag: "Free-Spirited", desc: "Layered textiles, natural materials, warm imperfection",
-    img: "/styles/bohemian.jpg" },
+    img: "/bohemian.jpg" },
   { id: "japandi", label: "Japandi / Wabi-Sabi", tag: "Serene Imperfection", desc: "Natural simplicity, muted palette, quiet beauty",
-    img: "/styles/japandi.jpg" },
+    img: "/japandi.jpg" },
   { id: "scandinavian", label: "Scandinavian / Hygge", tag: "Light & Cozy", desc: "White, wood, warmth — functional beauty",
-    img: "/styles/scandinavian.jpg" },
+    img: "/scandinavian.jpg" },
   { id: "dark_moody", label: "Dark & Moody", tag: "Dramatic Atmosphere", desc: "Deep jewel tones, velvet, dramatic contrast",
-    img: "/styles/dark_moody.jpg" },
+    img: "/dark_moody.jpg" },
   { id: "moroccan", label: "Moroccan / Middle Eastern", tag: "Exotic Opulence", desc: "Arches, lanterns, mosaic tiles, layered richness",
-    img: "/styles/moroccan.jpg" },
+    img: "/moroccan.jpg" },
   { id: "french_country", label: "French Country", tag: "Rustic Elegance", desc: "Linen, aged wood, soft patina, pastoral refinement",
-    img: "/styles/french_country.jpg" },
+    img: "/french_country.jpg" },
   { id: "biophilic", label: "Biophilic / Nature-led", tag: "Living Spaces", desc: "Abundant greenery, natural materials, living walls",
-    img: "/styles/biophilic.jpg" },
+    img: "/biophilic.jpg" },
   { id: "industrial", label: "Industrial / Urban Loft", tag: "Raw Sophistication", desc: "Exposed concrete, metal, dark tones, masculine edge",
-    img: "/styles/industrial.jpg" },
+    img: "/industrial.jpg" },
   { id: "coastal", label: "Coastal / Mediterranean", tag: "Breezy & Open", desc: "Whites, blues, natural stone, sea air freshness",
-    img: "/styles/coastal.jpg" },
+    img: "/coastal.jpg" },
   { id: "maximalist", label: "Maximalist / Bold", tag: "More is More", desc: "Rich colour, mixed pattern, abundant personality",
-    img: "/styles/maximalist.jpg" },
+    img: "/maximalist.jpg" },
   { id: "grand_luxury", label: "Grand Luxury / Hotel Style", tag: "Five-Star Living", desc: "Statement chandeliers, marble, opulent & impressive",
-    img: "/styles/grand_luxury.jpg" },
+    img: "/grand_luxury.jpg" },
   { id: "zen_spa", label: "Zen / Spa Retreat", tag: "Pure Serenity", desc: "Stone, water, candlelight — meditative stillness",
-    img: "/styles/zen_spa.jpg" },
+    img: "/zen_spa.jpg" },
   { id: "guide_me", label: "Guide Me", tag: "Open to Ideas", desc: "I'm completely open — let the studio lead the vision",
     img: null },
 ];
-
-/* ── WALL TREATMENTS with real photos ───────────────────── */
+/* ── WALL TREATMENTS with your curated photos ───────────── */
 const wallOptions = [
   { id: "moulding", label: "Wall Mouldings", tag: "Classic Elegance", desc: "Plaster frames, panel details, Georgian & colonial profiles",
-    img: "https://images.unsplash.com/photo-1618220179428-22790b461013?w=500&q=80&fit=crop" },
+    img: "/wall_moulding.jpg" },
   { id: "wallpaper", label: "Designer Wallpaper", tag: "Pattern & Mood", desc: "Botanical, geometric, damask, ombre & hand-printed",
-    img: "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=500&q=80&fit=crop" },
+    img: "/wall_wallpaper.jpg" },
   { id: "stone_veneer", label: "Natural Stone Veneer", tag: "Raw Luxury", desc: "Slate, quartzite, travertine & sandstone thin sheets",
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80&fit=crop" },
+    img: "/wall_stone_veneer.jpg" },
   { id: "pop_simple", label: "POP Wall — Simple", tag: "Clean Modern", desc: "Minimal ceiling-to-floor bands, recessed ledges, clean lines",
-    img: "https://images.unsplash.com/photo-1615529328331-f8917597711f?w=500&q=80&fit=crop" },
+    img: "/wall_pop_simple.jpg" },
   { id: "pop_grooves", label: "POP Groove Wall", tag: "Textured Depth", desc: "Vertical/horizontal shadow grooves, ribbed plaster relief",
-    img: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80&fit=crop" },
+    img: "/wall_pop_grooves.jpg" },
   { id: "marble_onyx", label: "Marble & Onyx Wall", tag: "Statement Luxury", desc: "Book-matched marble slabs, backlit onyx, calacatta feature walls",
-    img: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&q=80&fit=crop" },
+    img: "/wall_marble_onyx.jpg" },
   { id: "wall_art", label: "Plain Wall with Art", tag: "Curated & Personal", desc: "Gallery walls, oversized canvas, sculptural wall objects",
-    img: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=500&q=80&fit=crop" },
+    img: "/wall_art.jpg" },
   { id: "color_block", label: "Colour Block Wall", tag: "Bold & Graphic", desc: "Two-tone walls, geometric colour split, accent corner treatment",
-    img: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=80&fit=crop" },
+    img: "/wall_color_block.jpg" },
   { id: "texture_wall", label: "Texture / Plaster Wall", tag: "Organic & Tactile", desc: "Venetian plaster, tadelakt, microcement, limewash finishes",
-    img: "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=500&q=80&fit=crop" },
+    img: "/wall_texture.jpg" },
   { id: "cnc_stone", label: "CNC Stone Carving", tag: "Artisan Craft", desc: "Intricate jali-inspired, floral & geometric stone relief panels",
-    img: "https://images.unsplash.com/photo-1585128903994-9788298ef4b6?w=500&q=80&fit=crop" },
+    img: "/wall_cnc_stone.jpg" },
   { id: "mirror_panel", label: "Mirror Panelling", tag: "Expansive & Glamorous", desc: "Full-height mirror panels, tinted bronze/grey, framed sections",
-    img: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&q=80&fit=crop" },
+    img: "/wall_mirror.jpg" },
   { id: "curve_panel", label: "Curved Wall Panelling", tag: "Sculptural Form", desc: "Fluted curves, arched niches, undulating surface panelling",
-    img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80&fit=crop" },
+    img: "/wall_curve_panel.jpg" },
   { id: "wood_panel", label: "Wooden Wall Panelling", tag: "Warm & Natural", desc: "Vertical slat, chevron, herringbone & shiplap wood wall cladding",
-    img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80&fit=crop" },
+    img: "/wall_wood_panel.jpg" },
   { id: "metallic_panel", label: "Metallic / Embossed Panelling", tag: "Industrial Luxe", desc: "Brushed brass, oxidised copper, embossed stainless cladding",
-    img: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=500&q=80&fit=crop" },
+    img: "/wall_metallic.jpg" },
   { id: "tropical", label: "Tropical / Botanical Wall", tag: "Lush & Alive", desc: "Living walls, oversized botanical murals, tropical leaf wallpaper",
-    img: "https://images.unsplash.com/photo-1545241047-6083a3684587?w=500&q=80&fit=crop" },
+    img: "/wall_tropical.jpg" },
   { id: "upholstered", label: "Upholstered Wall", tag: "Soft & Luxurious", desc: "Button-tufted, channel-stitched fabric or leather wall panels",
-    img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=500&q=80&fit=crop" },
+    img: "/wall_upholstered.jpg" },
   { id: "mural", label: "Hand-painted Wall Mural", tag: "Artistic Statement", desc: "Custom scenic murals, abstract art, chinoiserie, trompe l'oeil",
-    img: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=500&q=80&fit=crop" },
+    img: "/wall_mural.jpg" },
   { id: "tile_mosaic", label: "Tile Mosaic / Artwork", tag: "Handcrafted Detail", desc: "Zellige, hand-cut glass, ceramic & stone mosaic feature walls",
-    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80&fit=crop" },
+    img: "/wall_tile_mosaic.jpg" },
 ];
-
 /* ── FLOORING OPTIONS with real photos ───────────────────── */
 const flooringOptions = [
   { id: "marble_floor", label: "Marble Flooring", tag: "Timeless Luxury", desc: "Italian & Indian marble — Statuario, Makrana, Calacatta",
@@ -114,20 +110,18 @@ const flooringOptions = [
   { id: "raised_floor", label: "Raised / Sunken Floor Detail", tag: "Architectural Drama", desc: "Platform beds, sunken seating pits, step-up puja or dining zones",
     img: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=80&fit=crop" },
 ];
-
 const feelOptions = [
-  { id: "calm", label: "Calm & Peaceful", emoji: "🌿" },
+  { id: "calm", label: "Calm & Peaceful", emoji: " " },
   { id: "grand", label: "Grand & Impressive", emoji: "✦" },
-  { id: "cozy", label: "Cozy & Intimate", emoji: "🕯️" },
-  { id: "fresh", label: "Fresh & Airy", emoji: "☁️" },
+  { id: "cozy", label: "Cozy & Intimate", emoji: " " },
+  { id: "fresh", label: "Fresh & Airy", emoji: " " },
   { id: "dramatic", label: "Dramatic & Bold", emoji: "◆" },
-  { id: "playful", label: "Playful & Vibrant", emoji: "🎨" },
+  { id: "playful", label: "Playful & Vibrant", emoji: " " },
   { id: "timeless", label: "Timeless & Classic", emoji: "⧖" },
   { id: "personal", label: "Personal & Story-filled", emoji: "◎" },
   { id: "minimal", label: "Minimal & Uncluttered", emoji: "○" },
   { id: "opulent", label: "Opulent & Indulgent", emoji: "♛" },
 ];
-
 /* ── COLOUR & MATERIAL MOODBOARD ────────────────────────── */
 const moodboardOptions = [
   {
@@ -221,7 +215,6 @@ const moodboardOptions = [
     img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&q=80&fit=crop",
   },
 ];
-
 const sections = [
   {
     id: "basics", label: "01 — You", icon: "◈",
@@ -250,10 +243,8 @@ const sections = [
   },
   { id: "style", label: "03 — Style", icon: "◇", type: "style_section" },
   { id: "walls", label: "04 — Walls", icon: "◫", type: "wall_section" },
-  { id: "floors_sec", label: "05 — Floors", icon: "▭", type: "floor_section" },
-  { id: "moodboard", label: "06 — Colour & Materials", icon: "◑", type: "moodboard_section" },
   {
-    id: "lifestyle", label: "07 — Lifestyle", icon: "◌",
+    id: "lifestyle", label: "05 — Lifestyle", icon: "◌",
     questions: [
       { id: "household", type: "checkbox", label: "Who lives in this home?",
         options: ["Just me", "Couple — no children", "Family with young children (under 8)", "Family with older children / teenagers", "Multi-generational — grandparents included", "Frequent guests / joint family visits", "Live-in help / staff"] },
@@ -268,7 +259,7 @@ const sections = [
     ],
   },
   {
-    id: "practical", label: "08 — Practical", icon: "◎",
+    id: "practical", label: "06 — Practical", icon: "◎",
     questions: [
       { id: "timeline", type: "radio", label: "Ideal timeline to complete the project",
         options: ["Within 3 months", "3 – 6 months", "6 – 12 months", "Flexible / No urgency"] },
@@ -283,7 +274,6 @@ const sections = [
     ],
   },
 ];
-
 /* ── Photo Card Component ───────────────────────────────── */
 function PhotoCard({ item, selected, onClick }) {
   const [loaded, setLoaded] = useState(false);
@@ -315,7 +305,7 @@ function PhotoCard({ item, selected, onClick }) {
           </div>
         )}
         {selected && (
-          <div style={{ position: "absolute", top: 8, right: 8, width: 24, height: 24, borderRadius: "50%", background: C.terracotta, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>✓</div>
+          <div style={{ position: "absolute", top: 8, right: 8, width: 24, height: 24, borderRadius: "50%", background: C.terracotta, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
         )}
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(transparent,rgba(0,0,0,0.4))", padding: "20px 10px 6px", fontSize: 9, color: "rgba(255,255,255,0.9)", letterSpacing: "0.12em", textTransform: "uppercase" }}>{item.tag}</div>
       </div>
@@ -326,7 +316,6 @@ function PhotoCard({ item, selected, onClick }) {
     </div>
   );
 }
-
 /* ── Section Components ─────────────────────────────────── */
 function StyleSection({ answers, setAnswers }) {
   const sel = answers.style_pref || [];
@@ -358,7 +347,6 @@ function StyleSection({ answers, setAnswers }) {
     </div>
   );
 }
-
 function WallSection({ answers, setAnswers }) {
   const sel = answers.wall_pref || [];
   const toggle = id => setAnswers(p => { const prev = p.wall_pref || []; return { ...p, wall_pref: prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id] }; });
@@ -373,10 +361,9 @@ function WallSection({ answers, setAnswers }) {
         <div style={QL}>Any specific walls you want as a feature wall?</div>
         <Textarea id="feature_wall" answers={answers} setAnswers={setAnswers} placeholder="e.g. Behind the master bed headboard, living room entrance wall..." />
       </div>
+}
     </div>
   );
-}
-
 function FloorSection({ answers, setAnswers }) {
   const sel = answers.floor_pref || [];
   const toggle = id => setAnswers(p => { const prev = p.floor_pref || []; return { ...p, floor_pref: prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id] }; });
@@ -393,26 +380,23 @@ function FloorSection({ answers, setAnswers }) {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 9, marginTop: 12 }}>
           {concerns.map(opt => {
             const on = (answers.floor_concerns || []).includes(opt);
-            return <div key={opt} onClick={() => setAnswers(p => { const prev = p.floor_concerns || []; return { ...p, floor_concerns: prev.includes(opt) ? prev.filter(v => v !== opt) : [...prev, opt] }; })} style={{ cursor: "pointer", padding: "8px 13px", borderRadius: 4, border: `1px solid ${on ? C.terracotta : C.border}`, background: on ? C.highlight : C.white, fontSize: 12.5, color: on ? C.rust : C.dark, transition: "all 0.18s", userSelect: "none" }}>{on ? "✓ " : ""}{opt}</div>;
+            return <div key={opt} onClick={() => setAnswers(p => { const prev = p.floor_concerns || []; return { ...p, floor_concerns: prev.includes(opt) ? prev.filter(v => v !== opt) : [...prev, opt] }; })} style={{ cursor: "pointer", padding: "8px 13px", borderRadius: 4, border: `1px solid ${on ? C.terracotta : C.border}`, background: on ? C.highlight : C.white, fontSize: 12.5, color: on ? C.rust : C.dark, transition: "all 0.18s", userSelect: "none" }}>{on ? "
           })}
         </div>
       </div>
     </div>
   );
 }
-
 /* ── Shared Primitives ──────────────────────────────────── */
 const QL = { fontSize: 15, color: C.dark, marginBottom: 4, fontWeight: 400 };
 const QS = { color: C.muted, fontSize: 12, fontWeight: 300 };
 const QH = { fontSize: 12, color: C.muted, marginBottom: 18, lineHeight: 1.6 };
 const GRID = { display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))", gap: 13, marginBottom: 32 };
-
 function Textarea({ id, answers, setAnswers, placeholder, rows = 3 }) {
   return <textarea value={answers[id] || ""} onChange={e => setAnswers(p => ({ ...p, [id]: e.target.value }))} placeholder={placeholder} rows={rows}
     style={{ width: "100%", padding: "12px 16px", border: `1px solid ${C.border}`, borderRadius: 4, background: C.white, fontSize: 14, color: C.dark, fontFamily: "Jost,sans-serif", outline: "none", resize: "vertical", boxSizing: "border-box", lineHeight: 1.7 }}
     onFocus={e => e.target.style.borderColor = C.terracotta} onBlur={e => e.target.style.borderColor = C.border} />;
 }
-
 function QuestionBlock({ q, answers, onChange }) {
   return (
     <div style={{ marginBottom: 32 }}>
@@ -438,19 +422,16 @@ function QuestionBlock({ q, answers, onChange }) {
     </div>
   );
 }
-
 function MoodboardSection({ answers, setAnswers }) {
   const sel = answers.moodboard_pref || [];
   const toggle = id => setAnswers(p => {
     const prev = p.moodboard_pref || [];
     return { ...p, moodboard_pref: prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id] };
   });
-
   return (
     <div>
       <div style={QL}>Which colour palettes & material moods feel like home to you? <span style={QS}>(select all that resonate)</span></div>
       <div style={QH}>Each card shows a real colour story — the swatches below each image are the actual palette. Pick what draws you in instinctively.</div>
-
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: 14, marginBottom: 36 }}>
         {moodboardOptions.map(item => {
           const selected = sel.includes(item.id);
@@ -480,15 +461,13 @@ function MoodboardSection({ answers, setAnswers }) {
                     <span style={{ fontSize: 24, color: "rgba(255,255,255,0.6)" }}>◑</span>
                   </div>
                 )}
-                {selected && <div style={{ position: "absolute", top: 8, right: 8, width: 24, height: 24, borderRadius: "50%", background: C.terracotta, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>✓</div>}
+                {selected && <div style={{ position: "absolute", top: 8, right: 8, width: 24, height: 24, borderRadius: "50%", background: C.terracotta, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 12, fontWeight: 700, boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
                 <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(transparent,rgba(0,0,0,0.45))", padding: "20px 10px 6px", fontSize: 9, color: "rgba(255,255,255,0.92)", letterSpacing: "0.12em", textTransform: "uppercase" }}>{item.tag}</div>
               </div>
-
               {/* Swatch Strip */}
               <div style={{ display: "flex", height: 10 }}>
                 {item.swatches.map((sw, i) => <div key={i} style={{ flex: 1, background: sw }} />)}
               </div>
-
               {/* Label */}
               <div style={{ padding: "9px 12px 12px" }}>
                 <div style={{ fontFamily: "Cormorant Garamond,Georgia,serif", fontSize: 14, fontWeight: 600, lineHeight: 1.25, color: selected ? C.terracotta : C.dark, marginBottom: 2 }}>{item.label}</div>
@@ -498,7 +477,6 @@ function MoodboardSection({ answers, setAnswers }) {
           );
         })}
       </div>
-
       {/* Material preferences */}
       <div style={{ marginBottom: 28 }}>
         <div style={QL}>Which materials draw you in?</div>
@@ -513,7 +491,6 @@ function MoodboardSection({ answers, setAnswers }) {
           })}
         </div>
       </div>
-
       {/* Colours to avoid */}
       <div>
         <div style={QL}>Any colours or materials you absolutely want to avoid?</div>
@@ -522,39 +499,32 @@ function MoodboardSection({ answers, setAnswers }) {
     </div>
   );
 }
-
-
 export default function App() {
   const [answers, setAnswers] = useState({});
   const [active, setActive] = useState(0);
   const [submitted, setSubmitted] = useState(false);
-
   const onChange = (type, id, val) => setAnswers(p => {
     if (type === "set") return val(p);
     if (type === "text" || type === "radio") return { ...p, [id]: val };
     if (type === "checkbox") { const prev = p[id] || []; return { ...p, [id]: prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val] }; }
     return p;
   });
-
   const sec = sections[active];
   const progress = Math.round(((active + 1) / sections.length) * 100);
-  const tabLabels = { basics: "You", space: "Space", style: "Style", walls: "Walls", floors_sec: "Floors", moodboard: "Colours", lifestyle: "Lifestyle", practical: "Practical" };
-
+  const tabLabels = { basics: "You", space: "Space", style: "Style", walls: "Walls", lifestyle: "Lifestyle", practical: "Practical" };
   if (submitted) return (
     <div style={{ minHeight: "100vh", background: C.ivory, display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ textAlign: "center", padding: "60px 32px", maxWidth: 460 }}>
         <div style={{ fontSize: 50, color: C.terracotta, marginBottom: 20 }}>✦</div>
         <h2 style={{ fontFamily: "Cormorant Garamond,Georgia,serif", fontSize: 36, fontWeight: 400, color: C.dark, marginBottom: 14, letterSpacing: "0.04em" }}>Thank you.</h2>
         <p style={{ fontSize: 16, color: C.muted, lineHeight: 1.9, fontWeight: 300 }}>We've received your brief. Ar. Neetu Agrawal will personally review your responses and reach out within 48 hours to schedule a discovery call.</p>
-        <div style={{ marginTop: 36, fontSize: 11, color: C.gold, letterSpacing: "0.14em", textTransform: "uppercase" }}>Studio ILIKA · Designing Spaces with Empathy</div>
+        <div style={{ marginTop: 36, fontSize: 11, color: C.gold, letterSpacing: "0.14em", textTransform: "uppercase" }}>Studio ILIKA 
       </div>
     </div>
   );
-
   return (
     <div style={{ minHeight: "100vh", background: C.ivory }}>
       <style>{`@keyframes spin{to{transform:rotate(360deg)}} ::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-thumb{background:#C2714F;border-radius:2px}`}</style>
-
       {/* Sticky Header */}
       <div style={{ background: C.dark, padding: "18px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 2px 12px rgba(0,0,0,0.3)" }}>
         <div>
@@ -568,7 +538,6 @@ export default function App() {
           </div>
         </div>
       </div>
-
       {/* Tabs */}
       <div style={{ display: "flex", overflowX: "auto", background: "#EDE6DA", borderBottom: `1px solid ${C.border}`, scrollbarWidth: "none" }}>
         {sections.map((s, i) => (
@@ -577,26 +546,22 @@ export default function App() {
           </button>
         ))}
       </div>
-
       {/* Content */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "36px 20px 100px" }}>
         <h2 style={{ fontFamily: "Cormorant Garamond,Georgia,serif", fontSize: 28, fontWeight: 400, color: C.dark, marginBottom: 4, letterSpacing: "0.04em" }}>{sec.icon} {sec.label}</h2>
         <div style={{ width: 36, height: 1, background: C.clay, marginBottom: 30 }} />
-
         {sec.type === "style_section" && <StyleSection answers={answers} setAnswers={setAnswers} />}
         {sec.type === "wall_section" && <WallSection answers={answers} setAnswers={setAnswers} />}
         {sec.type === "floor_section" && <FloorSection answers={answers} setAnswers={setAnswers} />}
         {sec.type === "moodboard_section" && <MoodboardSection answers={answers} setAnswers={setAnswers} />}
         {sec.questions && sec.questions.map(q => <QuestionBlock key={q.id} q={q} answers={answers} onChange={(type, id, val) => onChange(type, id, type === "set" ? val : val)} />)}
-
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 44 }}>
-          {active > 0 ? <button onClick={() => setActive(p => p - 1)} style={{ padding: "11px 26px", border: `1px solid ${C.muted}`, background: "transparent", color: C.muted, fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", borderRadius: 3, fontFamily: "Jost,sans-serif" }}>← Back</button> : <div />}
+          {active > 0 ? <button onClick={() => setActive(p => p - 1)} style={{ padding: "11px 26px", border: `1px solid ${C.muted}`, background: "transparent", color: C.muted, fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", borderRadius: 3, fontFamily: "Jost,sans-serif" }}>
           {active < sections.length - 1
-            ? <button onClick={() => { setActive(p => p + 1); window.scrollTo(0, 0); }} style={{ padding: "11px 32px", border: "none", background: C.terracotta, color: "#fff", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", borderRadius: 3, fontFamily: "Jost,sans-serif", fontWeight: 500 }}>Continue →</button>
-            : <button onClick={() => setSubmitted(true)} style={{ padding: "11px 32px", border: "none", background: C.dark, color: C.gold, fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", borderRadius: 3, fontFamily: "Jost,sans-serif", fontWeight: 500 }}>Submit Brief ✦</button>}
+            ? <button onClick={() => { setActive(p => p + 1); window.scrollTo(0, 0); }} style={{ padding: "11px 32px", border: "none", background: C.terracotta, color: "#fff", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", borderRadius: 3, fontFamily: "Jost,sans-serif", fontWeight: 500 }}>Continue 
+            : <button onClick={() => setSubmitted(true)} style={{ padding: "11px 32px", border: "none", background: C.dark, color: C.gold, fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", borderRadius: 3, fontFamily: "Jost,sans-serif", fontWeight: 500 }}>Submit Brief 
         </div>
       </div>
-
       <div style={{ textAlign: "center", padding: "14px", fontSize: 10, color: "#B5A899", letterSpacing: "0.1em", textTransform: "uppercase", borderTop: `1px solid #E0D8CE` }}>
         www.studioilika.com · @studioilika
       </div>
